@@ -4,7 +4,7 @@ function run() {
 
     $.ajax({
         url: 'http://itunes.apple.com/search?term=' + artist,
-        dataType: "jsonp",
+        dataType: "json",
         success: process
     });
 }
