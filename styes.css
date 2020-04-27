@@ -1,0 +1,14 @@
+* {
+    font-family: sans-serif;
+    padding: 10px;
+    background: lightskyblue;
+}
+
+#output {
+    display:none;
+}
+
+button {
+    background: yellow;
+    color: black;
+}
