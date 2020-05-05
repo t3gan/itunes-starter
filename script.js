@@ -3,7 +3,7 @@ function run() {
     var artist = "drake";
 
     $.ajax({
-        url: 'http://itunes.apple.com/search?term=' + artist,
+        url: 'https://itunes.apple.com/search?term=' + artist,
         dataType: "json",
         success: process
     });
