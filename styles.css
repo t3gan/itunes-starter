@@ -1,0 +1,245 @@
+/* =================================== Main Styles =================================== */
+body {
+    font-family: "Quicksand";
+    font-size: 25px;
+    text-align: center;
+    background-color: #edf5ff;
+}
+
+/* Page Background Colors */
+.index-page {
+    background-color: #edf5ff; }
+.medications-page {
+    background-color: #e9fadb; }
+.calendar-page {
+    background-color: #fff3d9;
+}
+.medications-page ul {
+    list-style: none;
+}
+
+/* Removes default link styling */
+a {
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+
+/* =================================== Form Styles =================================== */
+#medicationForm {
+    width: 300px;
+    margin: auto;
+    padding: 20px;
+    background: #d5e9c4;
+    box-shadow: 0px 4px 6px #e9fadb;
+    border-radius: 4px;
+}
+
+/* Label & Input Styles */
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #e9fadb;
+    border: 1px solid #8ec65c;
+}
+
+/* Number Input Styling */
+#medHoursBetweenDoses {
+    text-align: center;
+    width: 300px;
+    padding: 15px;
+    background-color: #e9fadb;
+    border: 1px solid #8ec65c;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Number Input Arrows */
+#medHoursBetweenDoses::-webkit-inner-spin-button, 
+#medHoursBetweenDoses::-webkit-outer-spin-button {
+    appearance: auto;
+    width: 20px;
+    height: 20px;
+    background-color: #8ec65c;
+    border-radius: 4px;
+}
+
+/* =================================== Button Styles =================================== */
+button {
+    background-color: #D9CECC;
+    border: 1px solid #F5F5DC;
+    padding: 4px 6px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    background-color: #b3de8d;
+    border: 1px solid #8ec65c;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover { background-color: #8ec65c; }
+
+/* =================================== Modal Styles =================================== */
+.modal {
+    visibility: hidden; /* Hidden by default */
+    opacity: 0;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px; /* Adjust width as needed */
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* =================================== Calendar Styles =================================== */
+#calendar {
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+/* Calendar Header */
+.fc-toolbar-title {
+    font-size: 1.5rem !important;
+    font-weight: bold;
+    color: #5a3e6b;
+}
+
+.fc-toolbar-chunk .fc-button { font-size: 0.9rem !important; }
+.fc-today-button { text-transform: capitalize !important; }
+
+.fc-prev-button, .fc-next-button {
+    font-size: 0.8rem !important;
+    padding: 5px 10px !important;
+}
+
+/* Calendar Buttons */
+.fc-button {
+    background-color: #ecd6f2 !important;
+    border: 1px solid #c3a3d1 !important;
+    padding: 6px 10px !important;
+    border-radius: 6px !important;
+    font-size: 0.9rem !important;
+    font-weight: bold;
+    color: #5a3e6b !important;
+}
+
+.fc-button:hover { background-color: #e6d5f7 !important; }
+
+/* Remove Calendar Scrollbar Completely */
+.fc-view-harness {
+    height: auto !important;
+    max-height: none !important;
+    min-height: 650px;
+}
+
+/* Remove extra space above calendar */
+.fc-header-toolbar {
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+    margin-top: 15px !important;
+}
+
+/* Solid Calendar Grid Lines */
+.fc-col-header-cell {
+    border: 2px solid #9c6a34 !important;
+}
+.fc-daygrid {
+    border: 2px solid #9c6a34 !important; /* Ensures the calendar has a border */
+}
+.fc-daygrid-day-frame {
+    border: 2px solid #9c6a34 !important; /* Keeps cell borders */
+}
+
+/* Lighter Numbers (Inactive Dates) */
+.fc-daygrid-day.fc-day-disabled {
+    color: #5a3e6b !important;
+    opacity: 0.8 !important;
+}
+
+/* =================================== Upcoming Medications Section =================================== */
+#upcoming-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #cbe3ff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#upcoming-section h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #2c3e50;
+}
+
+#upcomingList {
+    list-style: none;
+    padding: 0;
+}
+
+#upcomingList li {
+    background: #e3efff;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border-left: 4px solid #59a3f7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style the "Mark as Taken" Button */
+.mark-as-taken {
+    background-color: #e0faf0;
+    border: 1px solid #a1d7c0;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #145a32;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.mark-as-taken:hover { background-color: #c1e9d8; }

@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>CompSci IA</title>
+        <link rel="stylesheet" href="../styles.css" />
+    </head>
+
+      <body class="medications-page">
+      <h1>Medications</h1>
+      <div></div>
+      <div id="buttonContainer"></div>
+      <img src="../img/img/profile.png" width="150" id="profileImage">
+        <br/>
+        <a href="../HTML/index.html">
+          <button class="index-btn">Home</button>
+        </a>
+        <a href="../HTML/medications.html">
+          <button class="medications-btn">Medications</button>
+        </a>
+        <a href="../HTML/calendar.html">
+          <button class="calendar-btn">Calendar</button>
+        </a>
+        <br/>
+        <br/>
+
+<form id="medicationForm">
+    <label for="medName">Medication Name:</label>
+    <input type="text" id="medName" required />
+
+    <label for="medDetails">Details:</label>
+    <textarea id="medDetails"></textarea>
+
+    <label for="medHoursBetweenDoses">Hours Between Doses:</label>
+    <input type="number" id="medHoursBetweenDoses" min="1" required />
+
+    <label for="medNextDoseTime">Next Dose Time:</label>
+    <input type="datetime-local" id="medNextDoseTime" min="1" required />
+
+    <label for="medNotes">Notes:</label>
+    <textarea id="medNotes"></textarea>
+
+    <br/>
+    <br/>
+    <button type="submit">Add Medication</button>
+</form>
+
+<h2>Medication List</h2>
+<ul id="medicationList"></ul>
+
+<div id="medicationModal" class="modal">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Edit Medication</h2>
+      <form id="editMedicationForm">
+          <label for="editMedName">Name:</label>
+          <input type="text" id="editMedName" required>
+
+          <label for="editMedDetails">Details:</label>
+          <textarea id="editMedDetails"></textarea>
+
+          <label for="editMedHoursBetweenDoses">Hours Between Doses:</label>
+          <input type="number" id="editMedHoursBetweenDoses" required>
+
+          <label for="editMedNextDoseTime">Next Dose Time:</label>
+          <input type="datetime-local" id="editMedNextDoseTime">
+
+          <label for="editMedNotes">Notes:</label>
+          <textarea id="editMedNotes"></textarea>
+
+          <br/>
+          <br/>
+          <button type="submit">Save Changes</button>
+      </form>
+  </div>
+</div>
+
+<script type="text/javascript" src="../script.js"></script>
+</body>
+</html>

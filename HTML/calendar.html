@@ -3,12 +3,16 @@
         <title>CompSci IA</title>
         <link rel="stylesheet" href="../styles.css" />
 
+        <!-- FullCalendar CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.css" rel="stylesheet">
+        <!-- FullCalendar JS -->
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js"></script>
         <script type="text/javascript" src="../script.js"></script>
     </head>
 
     <body>
-      <body class="index-page"></body>
-      <h1>Home</h1>
+      <body class="calendar-page"></body>
+      <h1>Calendar</h1>
       <div></div>
       <div id="buttonContainer"></div>
       <img src="../img/img/profile.png" width="150" id="profileImage">
@@ -22,9 +26,6 @@
         <a href="../HTML/calendar.html">
           <button class="calendar-btn">Calendar</button>
         </a>
-        <section id="upcoming-section">
-          <h2>Upcoming Medications</h2>
-          <ul id="upcomingList"></ul>
-        </section>
+        <div id="calendar"></div>
     </body>
 </html>
