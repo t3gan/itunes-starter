@@ -1,4 +1,3 @@
-// Give reasoning why chose pre-coded calendar: simplified process, able to focus on main point of topic rather than UI coding, helped with time management, is how would work in real coding world anyway
 // Home = (maybe) shows medications, next doses (24 hours?) with checkbox when taken  -> overview
 // medications = edit (add/remove?)
 // calendar = month list of past medications (all that have been checked?)
@@ -25,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error parsing medications from localStorage:", error);
         medications = [];
     }
-    window.medications = medications; // Temporary global access
+    window.medications = medications; // Gives temporary global access to test, were console.log errors before
 
     let currentEditIndex = null; // Tracks which medication is being edited
 
@@ -116,13 +115,19 @@ document.addEventListener("DOMContentLoaded", function () {
         editForm.addEventListener("submit", function (event) {
             event.preventDefault();
             if (currentEditIndex !== null) {
+                const med = medications[currentEditIndex];
+    
+                // Preserve `nextDoseTime` if it wasn't changed
+                const editedNextDose = document.getElementById("editMedNextDoseTime").value || med.nextDoseTime;
+    
                 medications[currentEditIndex] = {
                     name: document.getElementById("editMedName").value,
                     details: document.getElementById("editMedDetails").value,
                     hoursBetweenDoses: parseInt(document.getElementById("editMedHoursBetweenDoses").value, 10) || 0,
-                    nextDoseTime: document.getElementById("editMedNextDoseTime").value,
+                    nextDoseTime: editedNextDose, // Preserve existing nextDoseTime
                     notes: document.getElementById("editMedNotes").value
                 };
+    
                 updateStorage();
                 modal.classList.remove("show");
             }
@@ -141,17 +146,24 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!upcomingList) return;
         upcomingList.innerHTML = "";
         const now = new Date();
+
+        // Filter and sort medications by nextDoseTime
         const upcomingMeds = medications.filter(med => new Date(med.nextDoseTime) > now)
             .sort((a, b) => new Date(a.nextDoseTime) - new Date(b.nextDoseTime));
-        upcomingMeds.forEach((med, index) => {
+        upcomingMeds.forEach((med) => {
+            const originalIndex = medications.findIndex(m => m.name === med.name);
+            if (originalIndex === -1) return; // Error proof in case it isn't found
+
             const listItem = document.createElement("li");
             listItem.textContent = `${med.name} - Next dose: ${new Date(med.nextDoseTime).toLocaleString()}`;
+
             const takenBtn = document.createElement("button");
             takenBtn.textContent = "Mark as Taken";
             takenBtn.addEventListener("click", function (event) {
                 event.stopPropagation();
-                markAsTaken(index);
+                markAsTaken(originalIndex); // Use original index
             });
+
             listItem.appendChild(takenBtn);
             upcomingList.appendChild(listItem);
         });
@@ -178,50 +190,4 @@ document.addEventListener("DOMContentLoaded", function () {
     if (upcomingList) displayUpcomingMedications();
 });
 
-
 //python -m http.server
-
-// class Doctors{
-//     constructor(name, type, phoneNum, email){
-//         this.name = name;
-//         this.type = type
-//         this.address = address;
-//         this.phoneNum = phoneNum;
-//         this.email = email;
-//     }
-//     getDirections(){
-
-//     }
-//     contact(){
-
-//     }
-// }
-// class Medications{
-//     constructor(name, type, hoursBetweenDoses, instructions, sideEffects, pillsPerBottle){
-//         this.name = name;
-//         this.type = type;
-//         this.hoursBetweenDoses = hoursBetweenDoses;
-//         this.instructions = instructions;
-//         this.sideEffects = sideEffects;
-//         this.pillsPerBottle = pillsPerBottle;
-//     }
-//     setReminder(){
-
-//     }
-//     markAsDone(){
-
-//     }
-//     refillDirections(){
-
-//     }
-// }
-// class Supplements extends Medications{
-//     constructor(name){
-//         super(name);
-//     }
-// }
-// class Example extends Medications{
-//     constructor(name){
-//         super(name);
-//     }
-// }
