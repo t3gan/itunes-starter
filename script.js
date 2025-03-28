@@ -2,6 +2,7 @@
 // medications = edit (add/remove?)
 // calendar = month list of past medications (all that have been checked?)
 
+
 // LOCAL STORAGE ONLY STORES IN TEXT FORMAT (so found way to convert medication objects
 // in array into text): JSON.stringify makes into string, JSON.parse = back to oject when retrieve
 // in medications form, '?' stops js from crashing if is undefined/ null value, just does nothing
