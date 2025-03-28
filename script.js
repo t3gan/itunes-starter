@@ -1,4 +1,3 @@
-// Give reasoning why chose pre-coded calendar: simplified process, able to focus on main point of topic rather than UI coding, helped with time management, is how would work in real coding world anyway
 // Home = (maybe) shows medications, next doses (24 hours?) with checkbox when taken  -> overview
 // medications = edit (add/remove?)
 // calendar = month list of past medications (all that have been checked?)
@@ -6,6 +5,7 @@
 // LOCAL STORAGE ONLY STORES IN TEXT FORMAT (so found way to convert medication objects
 // in array into text): JSON.stringify makes into string, JSON.parse = back to oject when retrieve
 // in medications form, '?' stops js from crashing if is undefined/ null value, just does nothing
+
 
 document.addEventListener("DOMContentLoaded", function () {
     // Get references to UI elements
@@ -25,9 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error parsing medications from localStorage:", error);
         medications = [];
     }
-    window.medications = medications; // Temporary global access
+    window.medications = medications; // Gives temporary global access to test, were console.log errors before
+
 
     let currentEditIndex = null; // Tracks which medication is being edited
+
 
     // Displays all medications
     function displayMedications() {
@@ -36,10 +38,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const listItem = document.createElement("li");
             listItem.textContent = `${med.name} - ${med.hoursBetweenDoses} hours between doses`;
 
+
             // Opens edit modal on click
             listItem.addEventListener("click", function () {
                 openEditModal(index);
             });
+
 
             // Delete button
             const deleteBtn = document.createElement("button");
@@ -49,12 +53,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 deleteMedication(index);
             });
 
+
             listItem.appendChild(deleteBtn);
             medicationList.appendChild(listItem);
         });
 
+
         displayUpcomingMedications(); // Refresh upcoming section
     }
+
 
     // Opens the edit modal
     function openEditModal(index) {
@@ -68,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
         modal.classList.add("show");
     }
 
+
     // Marks a medication as taken and updates next dose
     function markAsTaken(index) {
         const now = new Date();
@@ -78,11 +86,13 @@ document.addEventListener("DOMContentLoaded", function () {
         updateStorage();
     }
 
+
     // Deletes a medication
     function deleteMedication(index) {
         medications.splice(index, 1);
         updateStorage();
     }
+
 
     // Saves medications to localStorage and updates UI
     function updateStorage() {
@@ -90,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (medicationList) displayMedications();
         if (upcomingList) displayUpcomingMedications();
     }
+
 
     // Handles adding a new medication
     if (medicationForm) {
@@ -111,23 +122,31 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+
     // Saves edited medication
     if (editForm) {
         editForm.addEventListener("submit", function (event) {
             event.preventDefault();
             if (currentEditIndex !== null) {
+                const med = medications[currentEditIndex];
+    
+                // Preserve `nextDoseTime` if it wasn't changed
+                const editedNextDose = document.getElementById("editMedNextDoseTime").value || med.nextDoseTime;
+    
                 medications[currentEditIndex] = {
                     name: document.getElementById("editMedName").value,
                     details: document.getElementById("editMedDetails").value,
                     hoursBetweenDoses: parseInt(document.getElementById("editMedHoursBetweenDoses").value, 10) || 0,
-                    nextDoseTime: document.getElementById("editMedNextDoseTime").value,
+                    nextDoseTime: editedNextDose, // Preserve existing nextDoseTime
                     notes: document.getElementById("editMedNotes").value
                 };
+    
                 updateStorage();
                 modal.classList.remove("show");
             }
         });
     }
+
 
     // Closes modal
     if (closeModal) {
@@ -136,26 +155,39 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+
     // Displays upcoming medications
     function displayUpcomingMedications() {
         if (!upcomingList) return;
         upcomingList.innerHTML = "";
         const now = new Date();
+
+
+        // Filter and sort medications by nextDoseTime
         const upcomingMeds = medications.filter(med => new Date(med.nextDoseTime) > now)
             .sort((a, b) => new Date(a.nextDoseTime) - new Date(b.nextDoseTime));
-        upcomingMeds.forEach((med, index) => {
+        upcomingMeds.forEach((med) => {
+            const originalIndex = medications.findIndex(m => m.name === med.name);
+            if (originalIndex === -1) return; // Error proof in case it isn't found
+
+
             const listItem = document.createElement("li");
             listItem.textContent = `${med.name} - Next dose: ${new Date(med.nextDoseTime).toLocaleString()}`;
+
+
             const takenBtn = document.createElement("button");
             takenBtn.textContent = "Mark as Taken";
             takenBtn.addEventListener("click", function (event) {
                 event.stopPropagation();
-                markAsTaken(index);
+                markAsTaken(originalIndex); // Use original index
             });
+
+
             listItem.appendChild(takenBtn);
             upcomingList.appendChild(listItem);
         });
     }
+
 
     // Initializes calendar if present
     if (document.getElementById("calendar") && typeof FullCalendar !== "undefined") {
@@ -173,6 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
         calendar.render();
     }
 
+
     // Initialize display
     if (medicationList) displayMedications();
     if (upcomingList) displayUpcomingMedications();
@@ -180,48 +213,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //python -m http.server
-
-// class Doctors{
-//     constructor(name, type, phoneNum, email){
-//         this.name = name;
-//         this.type = type
-//         this.address = address;
-//         this.phoneNum = phoneNum;
-//         this.email = email;
-//     }
-//     getDirections(){
-
-//     }
-//     contact(){
-
-//     }
-// }
-// class Medications{
-//     constructor(name, type, hoursBetweenDoses, instructions, sideEffects, pillsPerBottle){
-//         this.name = name;
-//         this.type = type;
-//         this.hoursBetweenDoses = hoursBetweenDoses;
-//         this.instructions = instructions;
-//         this.sideEffects = sideEffects;
-//         this.pillsPerBottle = pillsPerBottle;
-//     }
-//     setReminder(){
-
-//     }
-//     markAsDone(){
-
-//     }
-//     refillDirections(){
-
-//     }
-// }
-// class Supplements extends Medications{
-//     constructor(name){
-//         super(name);
-//     }
-// }
-// class Example extends Medications{
-//     constructor(name){
-//         super(name);
-//     }
-// }
